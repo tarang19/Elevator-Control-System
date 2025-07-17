@@ -10,7 +10,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { ElevatorDispatcher } from '@/lib/elevatorDispatch';
 import { ElevatorFactory } from '@/lib/elevatorFactory';
 import { SYSTEM_CONFIG, ELEVATOR_STATES } from '@/lib/constants';
-import { ELEVATOR_STATES, CALL_DIRECTIONS } from '@/lib/constants';
+import { Elevator, FloorCall } from '@/types/elevator';
 
 describe('ElevatorDispatcher', () => {
   let elevators: Elevator[];
@@ -107,7 +107,7 @@ describe('ElevatorDispatcher', () => {
     it('should handle idle elevator by going to nearest destination', () => {
       elevators[0].currentFloor = 5;
       elevators[0].direction = ELEVATOR_STATES.IDLE;
-      elevator.direction = ELEVATOR_STATES.IDLE;
+      elevators[0].destinationFloors.add(3);
       elevators[0].destinationFloors.add(8);
 
       const result = ElevatorDispatcher.getNextDestination(elevators[0], []);
